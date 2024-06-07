@@ -1,0 +1,206 @@
+---
+title: "STA237 Assignment"
+output: pdf_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1 (10 Points)
+
+\textbf{Suppose you have four unique pairs of locks and keys but you do not know which key opens which lock and each key can only be used once, you decide to test your luck, what is the probability that none of the locks can be opened?}
+
+### a) Derive your answer analytically. (5 points)
+
+### b) Use simulation to justify your answer. (5 points)
+
+```{r, eval=FALSE}
+set.seed(12345) # do not change the seed
+
+# Number of simulations
+n_simulations <- 
+
+# Number of locks (and keys)
+n_locks <- 
+
+# Simulate trials
+results <- 0
+for (i in 1:n_simulations) {
+  # tell R to sample from the sequence 1:n_locks
+  # compare it with the sequence 1:n_locks
+  # x1 == x2 gives you a vector of elementwise results from the == operator
+}
+# Compute probability
+probability_no_matches <- # should be some calculation of average
+
+# Print the result
+cat("Probability that none of the locks can be opened:", probability_no_matches, "\n")
+```
+
+\newpage
+
+## Question 2 (20 Points)
+
+\textbf{Suppose you have a fair die, answer the following questions.}
+
+### a) Given that you have rolled a number larger than 2, what is the probability that it is a 4? Give both exact answer and simulated answer. (5 points)
+
+```{r, eval=FALSE}
+# Number of simulations
+n_simulations <- 10000
+
+# Simulate trials
+n_of_two <- 0
+n_of_four <- 0
+for (i in 1:n_simulations) {
+  number <- sample(1:6, 1)
+  if (# some condition) {
+    # increase n_of_two by 1 if condition satisfied
+    n_of_two <- 
+    if (# some condition) {
+      # increase n_of_four by 1 if condition satisfied
+      n_of_four <- 
+    }
+  }
+}
+# Compute probability
+probability <- 
+
+# Print the result
+cat("Probability of rolling a 4 given that rolling larger than 2:", probability, "\n")
+```
+
+### b) Suppose now you roll twice and let $S_2$ denote the sum of the two digits rolled, what is the probability that it is a multiple of 6? Give both exact answer and simulated answer. (5 points)
+
+```{r, eval=FALSE}
+# Simulate trials
+results <- 0
+for (i in 1:n_simulations) {
+  x1 <- 
+  x2 <- 
+  if (# check is x1 + x2 is divisible by 6 using the %% operator){
+    results <- 
+  }
+}
+
+# Compute probability
+probability <- 
+
+# Print the result
+cat("Probability of rolling a sum that is a multiple of 6:", probability, "\n")
+```
+
+### c) Is the event of getting a sum that is a multiple of 6 independent of the first roll? Give both exact answer and simulated answer. (5 points)
+
+```{r, eval=FALSE}
+# Simulate trials
+results <- rep(0, 6)
+for (i in 1:n_simulations) {
+  for (# check each case of the first roll) {
+    x <- # simulate the second roll
+    if (# check if the sum is a multiple of 6) {
+      results[j] <- # update the count
+    }
+  }
+}
+
+# Compute probability
+results <- 
+
+# Print the result
+for (j in 1:6) {
+  cat("Conditional probability given first roll being", j, "is", results[j], "\n")
+}
+```
+
+### d) Generalize the conclusion in the case of $n$ rolls. If we roll the die $n$ times, what is the probability of the sum being a multiple of 6? Is this event independent of any of the $n$ rolls? (5 points)
+
+\newpage
+
+## Question 3 (20 Points)
+
+\textbf{In this question, we assume $X_1,X_2,\ldots,X_n$ are identically and independently distributed discrete random variables where $P(X_i=-1)=P(X_i=1)=0.5$. In addition, denote $S_n=\frac{1}{\sqrt{n}}\sum_{i=1}^n X_i$.}
+
+### a) For the case $n=2$, compute the PMF and CDF of $S_n$. Confirm your answer using simulation. (5 points)
+
+```{r, eval=FALSE}
+# Simulation
+n_simulations <- 
+n <- 2
+X <- matrix(sample(#  what values of x, 
+                   #  size = how many simulations and how many steps per simulation, 
+                   #  replace = TRUE or FALSE), 
+                   #  ncol = how many steps per simulation)
+S_n <- # use rowSums() to compute the row sums of X and divide it by sqrt(n)
+
+# Compute PMF
+pmf_values <- table(S_n) / # understand what table(S_n) is and divide it by some number
+
+# Compute empirical CDF
+cdf_values <- # use the cumsum() function to get CDF from PMF
+
+# Output PMF and CDF
+print(pmf_values)
+print(cdf_values)
+```
+
+### b) Repeat part a for the case $n=3$. (5 points)
+
+
+### c) Use simulation to estimate the PDF and CDF for the cases $n=10,100,1000$. (5 points)
+
+```{r, eval=FALSE}
+n_values <- c(10, 100, 1000)
+
+# Function to simulate S_n
+simulate_S_n <- function(n) {
+  X <- 
+  S_n <- 
+  return(S_n)
+}
+
+# Function to plot PDF
+plot_PDF <- function(S_n, n) {
+  hist(S_n, breaks = 40, probability = TRUE, 
+       main = paste("Histogram of S_n for n =", n), xlab = "S_n values")
+}
+
+# Function to plot CDF
+plot_CDF <- function(S_n, n) {
+  S_n_sorted <- sort(S_n)
+  plot(S_n_sorted, (1:n_simulations) / n_simulations, type = "s", 
+       main = paste("CDF of S_n for n =", n), 
+       xlab = "S_n values", ylab = "Cumulative Probability")
+}
+
+# Apply the function for n=10, 100, 1000
+# i.e., simulate and plot PDF and CDF
+```
+
+### d) Plot the PDF and CDF for standard normal distribution. Compare your results with the above answers. What do you think is happening? (5 points)
+
+\newpage
+
+## Question 4 (15 Points)
+
+\textbf{Assume that $X\sim N(1,2^2),Y\sim N(2,1^2)$ and both are independent of each other. In addition, $\Phi(z)$ is the probability that a standard normal random variable is smaller than or equal to $z$, and $\Phi^{-1}$ is its inverse. In R, $\Phi(z)$ can be computed using pnorm(z) and $\Phi^{-1}(p)$ can be computed using qnorm(p). To generate standard normal random variables, you can use rnorm.}
+
+### a) Find $E(X-Y)$ and $\text{Var}(X-Y)$. State the distribution of $X-Y$. (5 points)
+
+### b) If $P(X-Y>\alpha)=0.05$, find $\alpha$ and represent it using $\Phi$. Confirm your answer using simulation. (5 points)
+
+### c) If $P(|X-Y-E(X-Y)|>\alpha)=0.05$, find $\alpha$ and represent it using $\Phi$. Confirm your answer using simulation. (5 points)
+
+\newpage
+
+## Question 5 (10 Points)
+
+\textbf{Suppose you have two independent standard normal random variables $X$ and $Y$.}
+
+### a) Derive the joint PDF of $X$ and $Y$. (2 points)
+
+### b) Note that $X$ and $Y$ can be rewritten as $X=R\cos\Theta$ and $Y=R\sin\Theta$. Derive the joint PDF of $R$ and $\Theta$. (4 points)
+
+### c) Use simulation to approximate the mean and variance for $R$ and $\Theta$. Plot their distributions. (4 points)
